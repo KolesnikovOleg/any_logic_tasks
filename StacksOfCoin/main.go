@@ -5,18 +5,18 @@ import "fmt"
 func Solution(A []int) int {
 	leftPointer := 0
 	rightPointer := len(A) - 1
-	leftCoastSum, rightCoastSum := 0, 0
+	leftCostSum, rightCostSum := 0, 0
 	leftMoveCoinsCount, rightMoveCoinsCount := 0, 0
 
 	doLeftMove := func() {
-		leftCoastSum += leftMoveCoinsCount
+		leftCostSum += leftMoveCoinsCount
 		A[leftPointer] -= leftMoveCoinsCount + leftMoveCoinsCount //not optional
 		A[leftPointer+1] += leftMoveCoinsCount
 		leftPointer += 1
 	}
 
 	doRightMove := func() {
-		rightCoastSum += rightMoveCoinsCount
+		rightCostSum += rightMoveCoinsCount
 		A[rightPointer] -= rightMoveCoinsCount + rightMoveCoinsCount //not optional
 		A[rightPointer-1] += rightMoveCoinsCount
 		rightPointer -= 1
@@ -25,14 +25,14 @@ func Solution(A []int) int {
 	for leftPointer != rightPointer {
 		leftMoveCoinsCount = int((A[leftPointer] - A[leftPointer]%2) / 2)
 		rightMoveCoinsCount = int((A[rightPointer] - A[rightPointer]%2) / 2)
-		possibleLeftCoast := leftCoastSum + leftMoveCoinsCount
-		possibleRightCoast := rightCoastSum + rightMoveCoinsCount
+		possibleLeftCost := leftCostSum + leftMoveCoinsCount
+		possibleRightCost := rightCostSum + rightMoveCoinsCount
 
-		if possibleRightCoast > possibleLeftCoast {
+		if possibleRightCost > possibleLeftCost {
 			doLeftMove()
 			continue
 		}
-		if possibleRightCoast < possibleLeftCoast {
+		if possibleRightCost < possibleLeftCost {
 			doRightMove()
 			continue
 		}
